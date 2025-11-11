@@ -1,13 +1,24 @@
-import React from 'react';
+import React, { use } from 'react';
 import { Link, NavLink } from 'react-router';
+import { toast } from 'react-toastify';
+import { AuthContext } from '../../Firebase/context/AuthContext';
 
 const Navbar = () => {
+   const { user, logOut } = use(AuthContext);
+
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {
+        toast.success("Logout Successful");
+      })
+      .catch();
+  };
   const link = <>
   <li><NavLink to='/'>Home</NavLink></li>
   <li><NavLink to='/exploreArtwork'>Explore Artwork</NavLink></li>
-  <li><NavLink to='/'>Add Artwork</NavLink></li>
-  <li><NavLink to='/'>My Gallery</NavLink></li>
-  <li><NavLink to='/'>My Favorites</NavLink></li>
+  <li><NavLink to='/addArtwork'>Add Artwork</NavLink></li>
+  <li><NavLink to='/myGallery'>My Gallery</NavLink></li>
+  <li><NavLink to='/myFavorites'>My Favorites</NavLink></li>
   </>
   return (
  <div className='bg-base-200'>
@@ -37,8 +48,33 @@ link
     </ul>
   </div>
   <div className="navbar-end">
-    <Link className="btn mr-2 bg-primary text-white">LogIn</Link>
-    <Link className="btn btn-outline text-primary">SignIn</Link>
+   <div className="navbar-end">
+          {user ? (
+            <div className="flex items-center gap-5">
+              <div className="relative group inline-block">
+                <img
+                  className="w-8 h-8 md:w-12 md:h-12 rounded-full cursor-pointer"
+                  src={user && user?.photoURL}
+                  alt={user?.displayName}
+                  title={user?.displayName}
+                />
+           
+              </div>
+              <Link onClick={handleLogOut} to="/" className="btn bg-primary text-base-100 md:px-10 px-5 hover">
+                Logout
+              </Link>
+            </div>
+          ) : (
+            <div className="flex gap-2">
+              <Link to="/auth/signup" className="btn btn-outline btn-primary md:px-10">
+                Signup
+              </Link>
+              <Link to="/auth/login" className="btn bg-primary text-base-100 md:px-10 hover">
+                Login
+              </Link>
+            </div>
+          )}
+        </div>
   </div>
 </div>
  </div>

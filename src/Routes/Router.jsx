@@ -7,6 +7,10 @@ import Signup from "../Pages/Signup/Signup";
 import Login from "../Pages/Login/Login";
 import AuthLayout from "../Layout/AuthLayout";
 import Loading from "../Pages/Loading/Loading";
+import AddArtwork from "../Pages/Add ArtWork/AddArtwork";
+import PrivateRoute from "./PrivateRoute";
+import MyGallery from "../Pages/My Gallery/MyGallery";
+import MyFabourite from "../Pages/My Fabourite/MyFabourite";
 
 export const router =  createBrowserRouter([
   {
@@ -23,7 +27,22 @@ export const router =  createBrowserRouter([
         Component:ExploreArtwork,
         loader: () => fetch('http://localhost:3000/publicArtwork'),
         hydrateFallbackElement: <Loading></Loading>
+      },
+      {
+path:'/addArtwork',
+element:<PrivateRoute> <AddArtwork></AddArtwork></PrivateRoute>
+      },
+      {
+        path:'/myGallery',
+element:<PrivateRoute><MyGallery></MyGallery></PrivateRoute>,
+      },
+      {
+        path:'myFavorites',
+        element: <PrivateRoute><MyFabourite></MyFabourite></PrivateRoute>
       }
+    
+
+      
     ]
   },
   {
