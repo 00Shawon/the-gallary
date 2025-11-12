@@ -53,6 +53,7 @@ export const router = createBrowserRouter([
             <MyFabourite></MyFabourite>
           </PrivateRoute>
         ),
+        
       },
       {
         path: "artworkDetails/:id",

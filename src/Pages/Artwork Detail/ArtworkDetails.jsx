@@ -7,16 +7,22 @@ import {
   FaUser,
   FaEnvelope,
 } from "react-icons/fa";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { toast } from "react-toastify";
+import { AuthContext } from "../../Firebase/context/AuthContext";
 
 const ArtworkDetails = () => {
   const [like, setLike] = useState(0)
+  const {user} = useContext(AuthContext)
+ 
   const data = useLoaderData();
+  
   const navigate = useNavigate();
  
 const handleLike = ()  =>  {
   setLike(like  +1)
 }
+
 
   const {
     _id,
@@ -31,10 +37,31 @@ const handleLike = ()  =>  {
     medium_tools,
     price,
     visibility,
-    createdAt,
+    
   } = data.result || {};
 
 console.log(data.result)
+
+const handleAddFavorite=() => {
+
+  fetch('http://localhost:3000/favorites',{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+      },
+      body:JSON.stringify({...data.result, downloaded_by: user.email})
+    })
+    .then(res => res.json())
+    .then(data => {
+      toast.success('Artwork Added successfully')
+      console.log('after post',data)
+    })
+    .catch(err => {
+      console.log(err)
+    })
+}
+
+
 
   return (
     <div className="min-h-screen bg-base-200 flex flex-col items-center py-10 px-4">
@@ -89,7 +116,7 @@ console.log(data.result)
               ❤️ Like {like}
             </button>
 
-            <button className="btn btn-outline btn-secondary flex items-center gap-2">
+            <button onClick={handleAddFavorite} className="btn btn-outline btn-secondary flex items-center gap-2">
               ⭐ Add to Favorites
             </button>
           </div>

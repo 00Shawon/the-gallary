@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Firebase/context/AuthContext";
 import { Link } from "react-router";
+import Swal from "sweetalert2";
+
 
 const MyGallery = () => {
   const { user } = useContext(AuthContext);
@@ -42,8 +44,48 @@ const MyGallery = () => {
     );
   }
 
+  const handleDelete = (id) => {
+Swal.fire({
+  title: "Are you sure?",
+  text: "You won't be able to revert this!",
+  icon: "warning",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  confirmButtonText: "Yes, delete it!"
+}).then((result) => {
+  if (result.isConfirmed) {
+ fetch(`http://localhost:3000/myArtwork/${id}`,{
+     method:'DELETE',
+     headers:{
+       'Content-Type':'application/json',
+     },
+   
+   })
+   .then(res => res.json())
+   .then(data => {
+       setArtworks((prev) => prev.filter((art) => art._id !== id));
+    Swal.fire({
+      title: "Deleted!",
+      text: "Your file has been deleted.",
+      icon: "success"
+    });
+     console.log(data)
+
+   })
+   .catch(err => {
+     console.log(err)
+   })
+
+  
+  }
+});
+  }
+
+
+
   return (
-    <div className="p-6 max-w-6xl mx-auto">
+    <div className="p-6 max-w-6xl mx-auto h-screen">
       <h2 className="text-3xl font-bold mb-6 text-center">My Gallery</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {artworks.map((art) => {
@@ -72,7 +114,7 @@ const MyGallery = () => {
 
                 </div>
                 <div className="flex items-end">
-                 <button className="btn btn-outline mr-2 text-secondary  hover:bg-secondary hover:text-white">Delete</button>
+                 <button onClick={() => handleDelete(_id)} className="btn btn-outline mr-2 text-secondary  hover:bg-secondary hover:text-white">Delete</button>
                  <Link to={`/updateArtwork/${_id}`} className="btn btn-outline text-primary  hover:bg-primary hover:text-white">Edit</Link>
                 </div>
                 </div>
