@@ -11,57 +11,76 @@ import AddArtwork from "../Pages/Add ArtWork/AddArtwork";
 import PrivateRoute from "./PrivateRoute";
 import MyGallery from "../Pages/My Gallery/MyGallery";
 import MyFabourite from "../Pages/My Fabourite/MyFabourite";
+import ArtworkDetails from "../Pages/Artwork Detail/ArtworkDetails";
 
-export const router =  createBrowserRouter([
+export const router = createBrowserRouter([
   {
-    path:'/',
+    path: "/",
     Component: Root,
-    children:[
+    children: [
       {
-        index:true,
-        Component:Home,
-
+        index: true,
+        Component: Home,
       },
       {
-        path:'/exploreArtwork',
-        Component:ExploreArtwork,
-        loader: () => fetch('http://localhost:3000/publicArtwork'),
-        hydrateFallbackElement: <Loading></Loading>
+        path: "/exploreArtwork",
+        Component: ExploreArtwork,
+        loader: () => fetch("http://localhost:3000/publicArtwork"),
+        hydrateFallbackElement: <Loading></Loading>,
       },
       {
-path:'/addArtwork',
-element:<PrivateRoute> <AddArtwork></AddArtwork></PrivateRoute>
+        path: "/addArtwork",
+        element: (
+          <PrivateRoute>
+            {" "}
+            <AddArtwork></AddArtwork>
+          </PrivateRoute>
+        ),
       },
       {
-        path:'/myGallery',
-element:<PrivateRoute><MyGallery></MyGallery></PrivateRoute>,
+        path: "/myGallery",
+        element: (
+          <PrivateRoute>
+            <MyGallery></MyGallery>
+          </PrivateRoute>
+        ),
       },
       {
-        path:'myFavorites',
-        element: <PrivateRoute><MyFabourite></MyFabourite></PrivateRoute>
-      }
-    
-
-      
-    ]
+        path: "myFavorites",
+        element: (
+          <PrivateRoute>
+            <MyFabourite></MyFabourite>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "artworkDetails/:id",
+        element: (
+          <PrivateRoute>
+            <ArtworkDetails></ArtworkDetails>
+          </PrivateRoute>
+        ),
+        loader:({params}) => fetch(`http://localhost:3000/publicArtwork/${params.id}`),
+        hydrateFallbackElement:<Loading></Loading>
+      },
+    ],
   },
   {
-    path:'auth',
+    path: "auth",
     element: <AuthLayout></AuthLayout>,
-    children:[
+    children: [
       {
-        path:'login',
+        path: "login",
         element: <Login></Login>,
-       
       },
       {
-        path:'signup',
-        element: <Signup></Signup> 
+        path: "signup",
+        element: <Signup></Signup>,
       },
-    ]
+    ],
   },
   {
-    path:'/*',
-    Component: Error ,
+    path: "/*",
+    Component: Error,
   },
-])
+]);

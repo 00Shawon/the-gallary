@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AuthContext } from "../../Firebase/context/AuthContext";
-import { data } from "react-router";
+
 
 const AddArtwork = () => {
  const {user} = useContext(AuthContext)

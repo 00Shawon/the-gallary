@@ -1,9 +1,11 @@
 import React from 'react';
 import { FaHeart } from "react-icons/fa"; // heart icon
 import { MdArrowForward } from "react-icons/md"; // arrow icon
+import { Link } from 'react-router';
 
 const ArtworkCard = ({artwork}) => {
   const {
+    _id,
     title,
     category,
     artist_name,
@@ -44,9 +46,9 @@ const ArtworkCard = ({artwork}) => {
             <span>{likes}</span>
           </div>
 
-          <button className="btn btn-sm btn-primary text-white flex items-center gap-1">
+          <Link to={`/artworkDetails/${_id}`} className="btn btn-sm btn-primary text-white flex items-center gap-1">
             View Details <MdArrowForward size={18} />
-          </button>
+          </Link>
         </div>
       </div>
     </div>
