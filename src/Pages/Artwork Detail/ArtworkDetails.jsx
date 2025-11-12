@@ -112,10 +112,7 @@ console.log(data.result)
             <p>
               <span className="font-semibold">Visibility:</span> {visibility}
             </p>
-            <p>
-              <span className="font-semibold">Created:</span>{" "}
-              {new Date(JSON.parse(createdAt)?.$date || createdAt).toDateString()}
-            </p>
+            
           </div>
 
           <div className="mt-5 flex justify-between items-center">

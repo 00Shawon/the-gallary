@@ -12,6 +12,7 @@ import PrivateRoute from "./PrivateRoute";
 import MyGallery from "../Pages/My Gallery/MyGallery";
 import MyFabourite from "../Pages/My Fabourite/MyFabourite";
 import ArtworkDetails from "../Pages/Artwork Detail/ArtworkDetails";
+import UpdateArtwork from "../Pages/Update Artwork/UpdateArtwork";
 
 export const router = createBrowserRouter([
   {
@@ -60,8 +61,20 @@ export const router = createBrowserRouter([
             <ArtworkDetails></ArtworkDetails>
           </PrivateRoute>
         ),
-        loader:({params}) => fetch(`http://localhost:3000/publicArtwork/${params.id}`),
-        hydrateFallbackElement:<Loading></Loading>
+        loader: ({ params }) =>
+          fetch(`http://localhost:3000/publicArtwork/${params.id}`),
+        hydrateFallbackElement: <Loading></Loading>,
+      },
+      {
+        path: "updateArtwork/:id",
+        element: (
+          <PrivateRoute>
+            <UpdateArtwork></UpdateArtwork>
+          </PrivateRoute>
+        ),
+         loader: ({ params }) =>
+          fetch(`http://localhost:3000/publicArtwork/${params.id}`),
+        hydrateFallbackElement: <Loading></Loading>,
       },
     ],
   },

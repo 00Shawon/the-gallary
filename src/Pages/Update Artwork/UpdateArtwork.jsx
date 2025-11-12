@@ -1,60 +1,58 @@
+import React, { useContext } from 'react';
+import { AuthContext } from '../../Firebase/context/AuthContext';
+import { toast, ToastContainer } from 'react-toastify';
+import { useLoaderData } from 'react-router';
 
-import { useContext } from "react";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { AuthContext } from "../../Firebase/context/AuthContext";
+const UpdateArtwork = () => {
+  const {user} = useContext(AuthContext)
+  const data  = useLoaderData();
+  const artwork = data.result;
+ console.log(artwork)
 
-
-const AddArtwork = () => {
- const {user} = useContext(AuthContext)
- console.log(user)
-
+ const handleUpdate = async (e) => {
+     e.preventDefault();
+  const  formData = {
+     
+ artist_name: e.target.name.value ,
+ image: e.target.image.value,
  
+ title: e.target.title.value,
+ description:e.target.description.value,
+ medium_tools:e.target.medium.value,
+ category:e.target.category.value,
+ artist_email:e.target.email.value ,
+ visibility: e.target.visibility.value,
+ price: e.target.price.value,
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
- const  formData = {
+
+   } 
+ 
+   fetch(`http://localhost:3000/myArtwork/${artwork._id}`,{
+     method:'PUT',
+     headers:{
+       'Content-Type':'application/json',
+     },
+     body:JSON.stringify(formData)
+   })
+   .then(res => res.json())
+   .then(data => {
+     toast.success('Artwork Updated successfully')
+     console.log('after post',data)
+   })
+   .catch(err => {
+     console.log(err)
+   })
     
-artist_name: e.target.name.value ,
-image: e.target.image.value,
-
-title: e.target.title.value,
-description:e.target.description.value,
-medium_tools:e.target.medium.value,
-category:e.target.category.value,
-artist_email:e.target.email.value ,
-visibility: e.target.visibility.value,
-price: e.target.price.value,
-likes: 0,
- createdAt: new Date()
-  } 
-
-  fetch('http://localhost:3000/publicArtwork',{
-    method:'POST',
-    headers:{
-      'Content-Type':'application/json',
-    },
-    body:JSON.stringify(formData)
-  })
-  .then(res => res.json())
-  .then(data => {
-    toast.success('Artwork Added successfully')
-    console.log('after post',data)
-  })
-  .catch(err => {
-    console.log(err)
-  })
-   
-  };
+   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center bg-base-100 p-6">
+   <div className="min-h-screen flex flex-col items-center bg-base-100 p-6">
       <ToastContainer position="top-center" autoClose={2000} hideProgressBar />
       <div className="card w-full max-w-2xl shadow-lg bg-base-100">
         <div className="card-body">
           <h2 className="card-title mx-auto text-2xl font-bold mb-4">Add New Artwork</h2>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleUpdate} className="space-y-4">
              {/* Read-only Fields */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
@@ -86,7 +84,7 @@ displayName
               <input
                 type="url"
                 name="image"
-               
+               defaultValue={artwork.image}
               
                 className="input input-bordered w-full"
                 required
@@ -99,6 +97,7 @@ displayName
               <input
                 type="text"
                 name="title"
+               defaultValue={artwork.title}
               
                 className="input input-bordered w-full"
                 required
@@ -110,6 +109,7 @@ displayName
               <label className="label">Category</label>
               <select
                 name="category"
+               defaultValue={artwork.category}
              
                 className="select select-bordered w-full"
               >
@@ -132,6 +132,7 @@ displayName
               <input
                 type="text"
                 name="medium"
+               defaultValue={artwork.medium_tools}
                
                 className="input input-bordered w-full"
                 required
@@ -143,6 +144,7 @@ displayName
               <label className="label">Description</label>
               <textarea
                 name="description"
+               defaultValue={artwork.description}
             
                 className="textarea textarea-bordered w-full"
                 required
@@ -151,13 +153,14 @@ displayName
 
             {/* Optional Fields */}
             <div >
-             
+              
 
               <div>
                 <label className="label">Price (optional)</label>
                 <input
                   type="number"
                   name="price"
+               defaultValue={artwork.price}
           
                   className="input input-bordered w-full"
                   min="0"
@@ -170,6 +173,7 @@ displayName
               <label className="label">Visibility</label>
               <select
                 name="visibility"
+               defaultValue={artwork.visibility}
              
                 className="select select-bordered w-full"
               >
@@ -182,7 +186,7 @@ displayName
 
             {/* Submit Button */}
             <button type="submit" className="btn btn-primary w-full mt-4">
-              Add Artwork
+              Update Artwork
             </button>
           </form>
         </div>
@@ -191,5 +195,4 @@ displayName
   );
 };
 
-export default AddArtwork;
-
+export default UpdateArtwork;
