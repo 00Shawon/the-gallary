@@ -1,29 +1,15 @@
-
 import { useLoaderData, useNavigate } from "react-router";
-import {
-  FaArrowLeft,
-  FaPaintBrush,
-  FaTag,
-  FaUser,
-  FaEnvelope,
-} from "react-icons/fa";
+import { FaArrowLeft, FaPaintBrush, FaTag, FaUser, FaEnvelope } from "react-icons/fa";
 import { useContext, useState } from "react";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../Firebase/context/AuthContext";
 
 const ArtworkDetails = () => {
-  const [like, setLike] = useState(0)
-  const {user} = useContext(AuthContext)
- 
+  const { user } = useContext(AuthContext);
   const data = useLoaderData();
-  
   const navigate = useNavigate();
- 
-const handleLike = ()  =>  {
-  setLike(like  +1)
-}
 
-
+  const artwork = data.result || {};
   const {
     _id,
     title,
@@ -37,31 +23,44 @@ const handleLike = ()  =>  {
     medium_tools,
     price,
     visibility,
-    
-  } = data.result || {};
+  } = artwork;
 
-console.log(data.result)
+  const [likes, setLikes] = useState(artwork.likes || 0);
 
-const handleAddFavorite=() => {
+  // Handle Like Button
+  const handleLike = async () => {
+    try {
+      const res = await fetch(`http://localhost:3000/artworks/${_id}/like`, {
+        method: "PATCH",
+      });
+      const result = await res.json();
 
-  fetch('http://localhost:3000/favorites',{
-      method:'POST',
-      headers:{
-        'Content-Type':'application/json',
-      },
-      body:JSON.stringify({...data.result, downloaded_by: user.email})
+      if (result.success) {
+        setLikes(result.likes); // update UI instantly
+      } else {
+        toast.error("Failed to like artwork");
+      }
+    } catch (err) {
+      console.error(err);
+      toast.error("Something went wrong");
+    }
+  };
+
+  // Add to favorites
+  const handleAddFavorite = () => {
+    fetch("http://localhost:3000/favorites", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ...artwork, downloaded_by: user.email }),
     })
-    .then(res => res.json())
-    .then(data => {
-      toast.success('Artwork Added successfully')
-      console.log('after post',data)
-    })
-    .catch(err => {
-      console.log(err)
-    })
-}
-
-
+      .then((res) => res.json())
+      .then(() => {
+        toast.success("Artwork added successfully");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <div className="min-h-screen bg-base-200 flex flex-col items-center py-10 px-4">
@@ -71,14 +70,12 @@ const handleAddFavorite=() => {
           onClick={() => navigate(-1)}
           className="btn btn-ghost flex items-center gap-2"
         >
-          <FaArrowLeft />
-          Back
+          <FaArrowLeft /> Back
         </button>
       </div>
 
       {/* Artwork Card */}
       <div className="card lg:card-side bg-base-100 shadow-2xl max-w-6xl w-full overflow-hidden">
-        {/* Image */}
         <figure className="lg:w-1/2 max-h-[650px] overflow-hidden">
           <img
             src={image}
@@ -87,7 +84,6 @@ const handleAddFavorite=() => {
           />
         </figure>
 
-        {/* Details */}
         <div className="card-body lg:w-1/2 space-y-4">
           <h1 className="text-4xl font-bold text-primary">{title}</h1>
 
@@ -99,27 +95,25 @@ const handleAddFavorite=() => {
             />
             <div>
               <h2 className="font-semibold text-lg flex items-center gap-2">
-                <FaUser className="text-primary" />
-                {artist_name}
+                <FaUser className="text-primary" /> {artist_name}
               </h2>
               <p className="text-sm text-gray-500 flex items-center gap-1">
-                <FaEnvelope className="text-secondary" />
-                {artist_email}
+                <FaEnvelope className="text-secondary" /> {artist_email}
               </p>
             </div>
           </div>
-  <div className="flex flex-wrap gap-4 mt-6">
-            <button onClick={handleLike}
-            
-              className="btn btn-outline btn-primary flex items-center gap-2"
-            >
-              ❤️ Like {like}
+
+          {/* Action Buttons */}
+          <div className="flex flex-wrap gap-4 mt-6">
+            <button onClick={handleLike} className="btn btn-outline btn-primary flex items-center gap-2">
+              ❤️ Like: {likes}
             </button>
 
             <button onClick={handleAddFavorite} className="btn btn-outline btn-secondary flex items-center gap-2">
               ⭐ Add to Favorites
             </button>
           </div>
+
           <p className="text-gray-700 leading-relaxed mt-4">{description}</p>
 
           <div className="divider"></div>
@@ -139,7 +133,6 @@ const handleAddFavorite=() => {
             <p>
               <span className="font-semibold">Visibility:</span> {visibility}
             </p>
-            
           </div>
 
           <div className="mt-5 flex justify-between items-center">
@@ -149,32 +142,6 @@ const handleAddFavorite=() => {
             </button>
           </div>
         </div>
-      </div>
-
-      {/* About Section */}
-      <div className="max-w-6xl mt-10 text-center">
-        <h2 className="text-2xl font-semibold mb-2 text-primary">
-          About This Piece
-        </h2>
-        <p className="text-gray-600 leading-relaxed">
-          This stunning artwork captures the serene harmony of nature through
-          color, light, and reflection. The warm hues of sunset blend perfectly
-          with the tranquil tones of twilight — a perfect addition to any
-          collection. Each brushstroke reflects the artist’s deep connection to
-          the stillness of the natural world.
-        </p>
-      </div>
-
-      {/* Related Artworks Section */}
-      <div className="max-w-6xl w-full mt-16">
-        <h2 className="text-3xl font-bold mb-6 text-center text-secondary">
-          More by {artist_name}
-        </h2>
-        
-          <p className="text-center text-gray-500">
-            No other artworks found by this artist.
-          </p>
-        
       </div>
     </div>
   );

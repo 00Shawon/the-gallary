@@ -11,7 +11,7 @@ const ArtworkCard = ({artwork}) => {
     artist_name,
     artist_photo,
     image,
-    likes = 128, // fallback likes count
+    likes = 0, // fallback likes count
   } = artwork;
 
   return (
