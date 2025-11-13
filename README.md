@@ -6,10 +6,10 @@ url link:  https://the-gallery-156c4.web.app
 
 Features: 
 
-1.MObile responsive
+1.Mboile responsive
 2. Online art-sharing platform where artists can upload and display their creative works
-3. website emphasizes creativity
-4.modern UI
+3. Website emphasizes creativity
+4.Modern UI
 5.Social for artist
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
