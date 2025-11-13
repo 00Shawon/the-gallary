@@ -79,7 +79,7 @@ link
                 />
            
               </div>
-              <Link onClick={handleLogOut} to="/" className="btn bg-primary  md:px-10 px-5 hover">
+              <Link onClick={handleLogOut} to="/" className="btn bg-secondary  md:px-10 px-5 hover">
                 Logout
               </Link>
             </div>
@@ -88,7 +88,7 @@ link
               <Link to="/auth/signup" className="btn btn-outline btn-primary md:px-10">
                 Signup
               </Link>
-              <Link to="/auth/login" className="btn bg-primary md:px-10 hover">
+              <Link to="/auth/login" className="btn bg-secondary md:px-10 hover">
                 Login
               </Link>
             </div>
