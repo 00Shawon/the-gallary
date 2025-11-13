@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { data, useLoaderData } from 'react-router';
+import { useLoaderData } from 'react-router';
 import ArtworkCard from '../../Component/ArtworkCard/ArtworkCard';
 import Loading from '../Loading/Loading';
+import { Fade } from 'react-awesome-reveal';
 
 const ExploreArtwork = () => {
   const data = useLoaderData()
@@ -53,9 +54,12 @@ if(loading){
    
       </div>
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5'>
-        {
+        <Fade cascade>
+          {
           artworks.map(artwork => <ArtworkCard key={artwork._id} artwork={artwork}></ArtworkCard> )
-        }
+        } 
+        </Fade>
+       
       </div>
     </div>
   );

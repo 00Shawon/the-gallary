@@ -1,7 +1,10 @@
-@import "tailwindcss";    
- @plugin "daisyui" {
-   themes: light --default, dark ;
- }
+@import "tailwindcss";
+@plugin "daisyui" {
+  themes: light --default, dark --prefersdark;
+}
+
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
  
 ul a.active {
   @apply text-primary font-semibold;

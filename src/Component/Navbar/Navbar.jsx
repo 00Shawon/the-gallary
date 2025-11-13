@@ -1,10 +1,22 @@
-import React, { use } from 'react';
+import React, { use, useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router';
 import { toast } from 'react-toastify';
 import { AuthContext } from '../../Firebase/context/AuthContext';
 
 const Navbar = () => {
    const { user, logOut } = use(AuthContext);
+const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+
+ useEffect(() => {
+    const html = document.querySelector("html");
+    html.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+    const handleTheme = (checked) => {
+    setTheme(checked ? "dark" : "light");
+  };
+
 
   const handleLogOut = () => {
     logOut()
@@ -19,6 +31,13 @@ const Navbar = () => {
   <li><NavLink to='/addArtwork'>Add Artwork</NavLink></li>
   <li><NavLink to='/myGallery'>My Gallery</NavLink></li>
   <li><NavLink to='/myFavorites'>My Favorites</NavLink></li>
+   <input
+           onChange={(e) => handleTheme(e.target.checked)}
+           type="checkbox"
+           defaultChecked={localStorage.getItem('theme') === "dark"}
+           className="toggle mt-1"/>
+ 
+
   </>
   return (
  <div className='bg-base-300'>
