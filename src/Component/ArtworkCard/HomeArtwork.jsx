@@ -24,7 +24,7 @@ const HomeArtwork = ({artwork}) => {
       {/* Card Body */}
       <div className="card-body">
         {/* Title + Category */}
-        <h2 className="card-title text-lg font-semibold text-gray-800">
+        <h2 className="card-title text-lg font-semibold ">
           {title}
           <div className="badge badge-primary text-white font-medium">{category}</div>
         </h2>
@@ -36,13 +36,13 @@ const HomeArtwork = ({artwork}) => {
             alt={artist_name}
             className="w-10 h-10 rounded-full object-cover border border-gray-200"
           />
-          <p className="ml-3 text-gray-700 font-medium">{artist_name}</p>
+          <p className="ml-3  font-medium">{artist_name}</p>
         </div>
 
         {/* Likes + Button */}
         <div className="flex items-center justify-between mt-4">
-          <div className="flex items-center gap-2 text-gray-500">
-            <FaHeart className="text-red-500" />
+          <div className="flex items-center gap-2 ">
+            <FaHeart className="text-red-400" />
             <span>{likes}</span>
           </div>
 

@@ -23,12 +23,29 @@ fetch(`http://localhost:3000/search?search=${searchText}`)
 setArtworks(data)
 setLoading(false)
 })
-
 if(loading){
   <Loading></Loading>
 }
-
 }
+
+const handleSort = async (e) => {
+  e.preventDefault();
+  const search = e.target.search.value.trim();
+  const sortOrder = e.target.sortOrder.value;
+
+  setLoading(true);
+  try {
+    const res = await fetch(
+      `http://localhost:3000/sort?search=${search}&sortOrder=${sortOrder}`
+    );
+    const data = await res.json();
+    setArtworks(data);
+  } catch (err) {
+    console.error("Error fetching sorted data:", err);
+  } finally {
+    setLoading(false);
+  }
+};
   return (
     <div className='max-w-11/12 mx-auto'>
       <div className='flex flex-col md:flex-row md:justify-between mt-10'>
@@ -48,10 +65,35 @@ if(loading){
     </g>
   </svg>
   <input type="search" name='search' required placeholder="Search" />
-  <button className='btn btn-outline text-primary'>Search</button>
+  <button  className='btn btn-outline text-primary'>Search</button>
 </label>
         </form>
-   
+        <form onSubmit={handleSort} className="flex gap-2 items-center">
+  <input
+    type="text"
+    className="input input-bordered ml-2"
+    name="search"
+    placeholder="Enter category name"
+    list="categories"
+  />
+  <datalist id="categories">
+    <option value="Landscape" />
+    <option value="Nature" />
+    <option value="Digital Art" />
+    <option value="Sculpture" />
+    <option value="Abstract" />
+  </datalist>
+
+  <select name="sortOrder" className="select select-bordered">
+    <option value="asc">A–Z</option>
+    <option value="desc">Z–A</option>
+  </select>
+
+  <button type="submit" className="btn btn-primary">
+    Sort
+  </button>
+</form>
+       
       </div>
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5'>
         <Fade cascade>
