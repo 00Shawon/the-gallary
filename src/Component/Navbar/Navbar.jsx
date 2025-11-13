@@ -21,7 +21,7 @@ const Navbar = () => {
   <li><NavLink to='/myFavorites'>My Favorites</NavLink></li>
   </>
   return (
- <div className='bg-base-200'>
+ <div className='bg-base-300'>
    <div className="navbar max-w-11/12 mx-auto">
   <div className="navbar-start">
     <div className="dropdown">
