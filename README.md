@@ -19,9 +19,6 @@ A modern, responsive platform for showcasing and exploring digital artworks.
 
 ---
 
-## 🖼️ Screenshot
-
-![App Preview]()
 
 
 ---
