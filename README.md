@@ -24,7 +24,8 @@ A modern, responsive platform for showcasing and exploring digital artworks.
 *(Replace the image below with your actual screenshot from the project)*
 
 ```
-![App Preview](./screenshots/preview.png)
+![App Preview](./Screenshot.png)
+
 ```
 
 ---
