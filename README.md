@@ -96,14 +96,31 @@ These are the main dependencies used in this project (taken from typical React+V
 
 ```
 "dependencies": {
-  "react": "^18.x",
-  "react-dom": "^18.x",
-  "firebase": "^11.x"
+    "@emotion/react": "^11.14.0",
+    "@tailwindcss/vite": "^4.1.17",
+    "daisyui": "^5.4.7",
+    "firebase": "^12.5.0",
+    "react": "^19.1.1",
+    "react-awesome-reveal": "^4.3.1",
+    "react-dom": "^19.1.1",
+    "react-icons": "^5.5.0",
+    "react-image-gallery": "^1.4.0",
+    "react-router": "^7.9.5",
+    "react-spinners": "^0.17.0",
+    "react-toastify": "^11.0.5",
+    "sweetalert2": "^11.26.3",
+    "tailwindcss": "^4.1.17"
 },
 "devDependencies": {
-  "vite": "^5.x",
-  "eslint": "^9.x",
-  "@vitejs/plugin-react": "^4.x"
+    "@eslint/js": "^9.36.0",
+    "@types/react": "^19.1.16",
+    "@types/react-dom": "^19.1.9",
+    "@vitejs/plugin-react": "^5.0.4",
+    "eslint": "^9.36.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.22",
+    "globals": "^16.4.0",
+    "vite": "^7.1.7"
 }
 ```
 
@@ -226,21 +243,7 @@ Feel free to fork the project, create feature branches, and open pull requests.
 
 ## 🧑‍💻 Author
 
-**Shawon Hasan**
+**Shawon**
 🔗 GitHub: [https://github.com/00Shawon](https://github.com/00Shawon)
 
----
 
-If you want, I can also create:
-✅ A banner image for your README
-✅ A better screenshot layout
-✅ A shortened, more attractive repo description
-
-Just tell me: **"Make the banner"** or **"Make the short repo description"**.
-
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
