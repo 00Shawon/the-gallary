@@ -1,6 +1,6 @@
 
 
-# 🖼️ the-gallary
+# 🖼️ the-gallery
 
 A modern, responsive platform for showcasing and exploring digital artworks.
 
@@ -8,7 +8,7 @@ A modern, responsive platform for showcasing and exploring digital artworks.
 
 ## 📌 **Project Overview**
 
-**the-gallary** is a React + Vite + Firebase–based web application that allows users to upload artwork, explore galleries, favorite items, and interact with a clean, engaging, mobile-friendly user interface. The platform is designed for artists, creators, and art-lovers who want an easy place to showcase and discover creative work.
+**the-gallery** is a React + Vite + Firebase–based web application that allows users to upload artwork, explore galleries, favorite items, and interact with a clean, engaging, mobile-friendly user interface. The platform is designed for artists, creators, and art-lovers who want an easy place to showcase and discover creative work.
 
 ---
 
