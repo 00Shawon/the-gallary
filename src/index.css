@@ -1,11 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap');
 @import "tailwindcss";
-@plugin "daisyui" {
-  themes: light --default, dark --prefersdark;
+
+body {
+  font-family: 'Inter', sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  @apply text-gray-800 antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Outfit', sans-serif;
+}
+
+.glass {
+  @apply bg-white/70 backdrop-blur-lg border border-white/20 shadow-xl;
+}
+
+.glass-dark {
+    @apply bg-black/60 backdrop-blur-lg border border-white/10 shadow-xl;
+}
+
+@layer components {
+  ul a.active {
+    @apply text-purple-600 font-bold bg-purple-50 px-3 py-1 rounded-full;
+  }
+  
+  .btn-primary {
+      @apply bg-gradient-to-r from-purple-600 to-pink-500 hover:from-purple-700 hover:to-pink-600 text-white border-none shadow-md hover:shadow-lg transform active:scale-95 transition-all duration-200;
+  }
 }
 
 
-@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
- 
-ul a.active {
-  @apply text-primary font-semibold;
-}

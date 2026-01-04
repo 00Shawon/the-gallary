@@ -13,11 +13,16 @@ import MyGallery from "../Pages/My Gallery/MyGallery";
 import MyFabourite from "../Pages/My Fabourite/MyFabourite";
 import ArtworkDetails from "../Pages/Artwork Detail/ArtworkDetails";
 import UpdateArtwork from "../Pages/Update Artwork/UpdateArtwork";
+import PrivacyPolicy from "../Pages/Privacy Policy/PrivacyPolicy";
+import Terms from "../Pages/Tarms of Services/Terms";
+import ContactUs from "../Pages/Contact Us/ContactUs";
+import Dashboard from "../Pages/Dashboard/Dashboard";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     Component: Root,
+    errorElement: <Error />,
     children: [
       {
         index: true,
@@ -26,8 +31,20 @@ export const router = createBrowserRouter([
       {
         path: "/exploreArtwork",
         Component: ExploreArtwork,
-        loader: () => fetch("http://localhost:3000/publicArtwork"),
+        loader: () => fetch(`${import.meta.env.VITE_API_URL}/publicArtwork?page=1`),
         hydrateFallbackElement: <Loading></Loading>,
+      },
+      {
+        path: '/privacy-policy',
+        Component:PrivacyPolicy
+      },
+      {
+        path: '/terms',
+        Component:Terms
+      },
+      {
+        path: '/contact',
+        Component:ContactUs
       },
       {
         path: "/addArtwork",
@@ -63,7 +80,7 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/publicArtwork/${params.id}`),
+          fetch(`${import.meta.env.VITE_API_URL}/publicArtwork/${params.id}`),
         hydrateFallbackElement: <Loading></Loading>,
       },
       {
@@ -74,7 +91,7 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
          loader: ({ params }) =>
-          fetch(`http://localhost:3000/publicArtwork/${params.id}`),
+          fetch(`${import.meta.env.VITE_API_URL}/publicArtwork/${params.id}`),
         hydrateFallbackElement: <Loading></Loading>,
       },
     ],
@@ -92,6 +109,10 @@ export const router = createBrowserRouter([
         element: <Signup></Signup>,
       },
     ],
+  },
+  {
+path: 'dashboard',
+element:<PrivateRoute><Dashboard></Dashboard></PrivateRoute>
   },
   {
     path: "/*",
